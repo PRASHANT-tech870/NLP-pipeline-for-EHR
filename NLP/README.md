@@ -1,4 +1,6 @@
 <h>NLP ON ELECTRONIC HEALTH RECORDS</h>
+
+
 This specific task involves the extraction of symptoms from a particular sentence that will work as an input for our first stage of identification - this stage extracts features to decide whether an MRI is to be performed or not. This involves training of discharge summaries of patients that are obtained from hospitals as well as PubMed dataset to obtain the following:
 1. Symptoms of the patients
 2. Gender
