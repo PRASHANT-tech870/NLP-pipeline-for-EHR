@@ -13,8 +13,8 @@ These important features, which will be the very first experienced by a patient 
 3. BiLSTM - CRF model
 
 The following are the results of the models we have tried on performing NER on our dataset for feature extraction:
-| MODEL | ACCURACY |
-|----------|----------|
-| Simple Transfer Learning on BioBert |  |
-| COMPREHEND |  | 
-| BiLSTM - CRF model | |
+| MODEL | TOTAL ACCURACY | CAPTURING REQUIRED FEATURES ACCURACY  |
+|----------|----------|-------|
+| Simple Transfer Learning on BioBert |  |  |
+| COMPREHEND |  |  |
+| BiLSTM - CRF model | |  |
