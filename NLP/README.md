@@ -15,6 +15,5 @@ These important features, which will be the very first experienced by a patient 
 The following are the results of the models we have tried on performing NER on our dataset for feature extraction:
 | MODEL | TOTAL ACCURACY | CAPTURING REQUIRED FEATURES ACCURACY  |
 |----------|----------|-------|
-| Simple Transfer Learning on BioBert |  |  |
-| COMPREHEND |  |  |
-| BiLSTM - CRF model | |  |
+| COMPREHEND | 98.04 % | 73.4 % |
+| BiLSTM - CRF model | 98.6 % | 74.39 % |
