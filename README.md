@@ -14,6 +14,4 @@ https://drive.google.com/drive/folders/1O0zJQLTBw7quEJT55HR-G6XND7equccI?usp=sha
 
 <br>
 
-<h2>PROJECT UPDATES</h2>
 
-https://docs.google.com/spreadsheets/d/1Z_NQVPdIaS__DT9gh4ssQ_67iyAIqMZjGLFreyg2B3Q/edit?usp=sharing
