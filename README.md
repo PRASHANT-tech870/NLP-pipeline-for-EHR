@@ -1,9 +1,16 @@
-<h2>DATASET LINKS</h2>
+<h2>DATASES</h2>
 
 
 <h4>Pubmed dataset (for NLP)</h4>
 
-https://drive.google.com/file/d/1WEWpvvHLF_Q3ujyKeGpLFB1NmEjFI2Iq/view?usp=drive_link (please download)
+The PMC (PubMed Central) Patients dataset is a collection of medical case studies and reports available through PubMed. It includes diverse patient profiles, diagnoses, treatments, and outcomes, providing valuable insights for medical research and practice.
+
+Below is a screenshot of how our data looks like
+![image](https://github.com/PRASHANT-tech870/NLP-pipeline-for-EHR/assets/56446798/cbc92fcc-4429-494f-8a95-781b80f85e30)
+
+Following is the link to download it:
+
+https://figshare.com/articles/dataset/MACCROBAT2018/9764942
 
 <br>
 
