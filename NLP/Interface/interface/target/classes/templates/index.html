@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/styles.css">
+  <title>Query Form</title>
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 600px;
+    padding: 40px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    animation: slideIn 0.5s ease-in-out;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form {
+    text-align: left;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"] {
+    width: 900px;
+    padding: 20px 15px; /* Adjust vertical padding */
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    height: 100px; /* Adjust the height as needed */
+}
+
+input[type="text"]:focus {
+    border-color: #4CAF50;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+  </style>
+</head>
+<body>
+
+<form id="query-form" action="/sendJsonRequest" method="post">
+  <label for="med_string">Enter Medical String:</label>
+  <input type="text" id="med_string" name="med_string" required><br>
+
+
+
+  <button type="submit">Submit</button>
+</form>
+</body>
+</html>
