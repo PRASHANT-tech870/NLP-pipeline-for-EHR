@@ -15,9 +15,9 @@ https://figshare.com/articles/dataset/MACCROBAT2018/9764942
 <br>
 
 <h4>MRI image dataset</h4>
-https://drive.google.com/drive/folders/12KeUZCznfkGGOVes455BMDD7ePA_4yM3?usp=sharing (KAGGLE TUMOR DATASET)
+https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset (KAGGLE TUMOR DATASET)
 <br>
-https://drive.google.com/drive/folders/1O0zJQLTBw7quEJT55HR-G6XND7equccI?usp=sharing  (OASIS ALZHEIMERS)
+https://www.kaggle.com/datasets/ninadaithal/imagesoasis  (OASIS ALZHEIMERS)
 
 <br>
 
