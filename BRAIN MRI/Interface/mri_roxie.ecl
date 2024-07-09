@@ -32,14 +32,16 @@ predicted_label =np.argmax(predictions, axis=1)
 predicted_prob =np.max(predictions,axis=1)
 
 
-return str(predicted_label)
+class_labels=['glioma','meningioma','notumor',pituitary]
+predicted_class =class_labels[predicted_label[0]]
+predicted_prob1 =predicted_prob[0]
 
+
+return f"{predicted_class},{predicted_prob1:.2f}"
 
 endembed;
 
-
-
-export mri_roxie() := FUNCTION
+export mri_roxie22() := FUNCTION
     rec:=RECORD
         STRING STR;
     END;
