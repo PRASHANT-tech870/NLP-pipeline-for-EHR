@@ -21,3 +21,37 @@ The following are the results of the models we have tried on performing NER on o
 <br>
 
 
+<h1>Decision-Making for MRI Based on Extracted Features</h1>
+
+<h3>Description</h3>
+Use the extracted medical entities to determine whether a patient requires an MRI.
+The features identified include gender, symptoms, duration, and affected organs.
+<h3>Data Source</h3>
+The features extracted from the BiLSTM-CRF model were used to create a dataset for further analysis.
+<h3>Labeling Process</h3>
+The data was used to create a graph for each patient, representing the relationships between the extracted medical entities.
+This whole process can be viewed in Graph_model.ipynb
+<h3>Model Architecture</h3>
+A Graph Attention Networks (GAT) model was employed to analyze the graphs and make MRI-related decisions.
+<h3>Results</h3>
+The GAT model was trained using data from patients who underwent an MRI and those who did not, effectively learning to predict the necessity of an MRI based on the extracted features.
+
+<h2>An example of Patient graphs obtained</h2>
+
+![image](https://github.com/user-attachments/assets/0a03163a-2e58-4b2b-bfe8-cb1dcdb425ec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
