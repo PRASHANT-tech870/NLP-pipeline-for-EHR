@@ -13,7 +13,7 @@ You can enter a Medical text in the given text box provided and then click submi
 The website will return a table consisting of medical entities extracted from the input text which contains columns of Symptom_to_organ and Symptom_to_duration
 The last line in the website will be about the requiremnet of the MRI scan
 <br>
-Examples are shown below
+An example is shown below
 <br>
 
 ![image](https://github.com/user-attachments/assets/ad96f069-8966-431f-a5d3-034e0629a02f)
