@@ -33,7 +33,9 @@ The data was used to create a graph for each patient, representing the relations
 This whole process can be viewed in Graph_model.ipynb
 <h3>Model Architecture</h3>
 A Graph Attention Networks (GAT) model was employed to analyze the graphs and make MRI-related decisions. The following is the architechture:
-<br>![image](https://github.com/user-attachments/assets/f5185ef0-3c9f-4385-a5e4-a8a90cd7826e)</br>
+
+![WhatsApp Image 2024-09-19 at 01 25 18_5ccab5ae](https://github.com/user-attachments/assets/9fd419d6-6a8b-46f4-b64a-d825c6d6e1ef)
+
 
 <h3>Results</h3>
 The GAT model was trained using data from patients who underwent an MRI and those who did not, effectively learning to predict the necessity of an MRI based on the extracted features.
