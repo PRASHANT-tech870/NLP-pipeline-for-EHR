@@ -12,6 +12,10 @@ These important features, which will be the very first experienced by a patient 
 2. COMPREHEND model for NER
 3. BiLSTM - CRF model
 
+<br>
+![WhatsApp Image 2024-09-19 at 01 28 05_11113e8e](https://github.com/user-attachments/assets/93db0e99-6900-46a8-b825-a3f5bff9683b)
+<br>
+
 The following are the results of the models we have tried on performing NER on our dataset for feature extraction:
 | MODEL | TOTAL ACCURACY | CAPTURING REQUIRED FEATURES ACCURACY  |
 |----------|----------|-------|
