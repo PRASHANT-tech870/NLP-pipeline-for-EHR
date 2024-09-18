@@ -32,7 +32,9 @@ The features extracted from the BiLSTM-CRF model were used to create a dataset f
 The data was used to create a graph for each patient, representing the relationships between the extracted medical entities.
 This whole process can be viewed in Graph_model.ipynb
 <h3>Model Architecture</h3>
-A Graph Attention Networks (GAT) model was employed to analyze the graphs and make MRI-related decisions.
+A Graph Attention Networks (GAT) model was employed to analyze the graphs and make MRI-related decisions. The following is the architechture:
+<br>![image](https://github.com/user-attachments/assets/f5185ef0-3c9f-4385-a5e4-a8a90cd7826e)</br>
+
 <h3>Results</h3>
 The GAT model was trained using data from patients who underwent an MRI and those who did not, effectively learning to predict the necessity of an MRI based on the extracted features.
 
