@@ -40,6 +40,18 @@ The GAT model was trained using data from patients who underwent an MRI and thos
 
 ![image](https://github.com/user-attachments/assets/0a03163a-2e58-4b2b-bfe8-cb1dcdb425ec)
 
+The next stage of the project is to pass these graphs created through a graph machine learning model that is doing a classification task: whether a person has to proceed for an M.R.I or not. The models were further trained on 12,000 patients data and were deployed onto the cluster.
+For that purpose, the following models were used:
+
+
+| MODEL | TOTAL ACCURACY| 
+|----------|----------|
+| SORT POOL (k most nodes) | 76.35 % |
+| GLOBAL MEAN POOL | 72.68 % |
+
+
+
+
 
 
 
