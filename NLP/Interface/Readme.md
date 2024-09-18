@@ -1,4 +1,4 @@
-<h1>INTEGRATING OUR MODEL WITH HPCC - PHASE 1</h1>
+<h1>INTEGRATING OUR MODEL WITH HPCC</h1>
 
 This documentation describes our process in which we put up our entire model on ECL which is able to bring out the medical parameters of an input string, and have created a frontend interface using streamlit. A POST request was created onto the roxie server of HPCC Systems. The data on output is then displayed on the sceen
 
