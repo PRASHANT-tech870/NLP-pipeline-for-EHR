@@ -5,13 +5,20 @@ This documentation describes our process in which we put up our entire model on 
 
 <h1>This is how our Web app looks like!</h1>
 
-![image](https://github.com/user-attachments/assets/ad622c2e-2164-4085-a64a-7db918a2a150)
+![image](https://github.com/user-attachments/assets/fe1b9ab9-ebcc-49d5-a251-c2f860a5a333)
+
 
 <br>
 You can enter a Medical text in the given text box provided and then click submit. 
-The website will return a table consisting of medical entities extracted from the input text
+The website will return a table consisting of medical entities extracted from the input text which contains columns of Symptom_to_organ and Symptom_to_duration
+The last line in the website will be about the requiremnet of the MRI scan
 <br>
-And then you can click the 'Predict' button to get to know if a MRI scan is required for the patient!
+Examples are shown below
+<br>
+
+![image](https://github.com/user-attachments/assets/ad96f069-8966-431f-a5d3-034e0629a02f)
+
+
 
 
 
