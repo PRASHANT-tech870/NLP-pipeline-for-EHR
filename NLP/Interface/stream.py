@@ -10,10 +10,10 @@ def load_lottiefile(filepath: str):
         return json.load(f)
 
 # Set the URL and authentication credentials
-url = "http://4.152.243.71:8002/WsEcl/json/query/roxie/gcn_crf_final"
+url = "http://48.214.28.80:8002/WsEcl/json/query/roxie/new_try_200"
 
 # Load Lottie animations
-lottie_medical = load_lottiefile("medical.json")
+lottie_medical = load_lottiefile("/home/ubuntu/Downloads/medical.json")
 
 # Custom CSS for styling
 st.markdown("""
@@ -50,14 +50,13 @@ st.markdown("""
         background-color: #000000;
     }
     h1 {
-        font-size: 40px;  /* Adjust the size as needed */
-        white-space: nowrap; /* Prevents line break */
+        font-size: 40px;
+        white-space: nowrap;
     }
     </style>
 """, unsafe_allow_html=True)
 
 st.markdown("<h1>🔍 Medical Entities Extractor using NLP</h1>", unsafe_allow_html=True)
-
 st_lottie(lottie_medical, height=200, key="medical")
 
 # Create a text input field
@@ -76,7 +75,7 @@ def make_request(url, data):
 if st.button("Submit"):
     # Create a JSON payload
     data = {
-        "gcn_crf_final": {
+        "new_try_200": {
             "med_data": medical_text
         }
     }
@@ -86,43 +85,77 @@ if st.button("Submit"):
     # Check if the request was successful
     if response is not None:
         try:
-            # Extract the JSON response
+            # Parse JSON response
             json_response = response.json()
-            print(json_response)
-            print(type(json_response))
-            rows = json_response['gcn_crf_finalResponse']['Results']['result_1']['Row']
+            
+            # Check if 'new_try_200Response' key exists
+            if 'new_try_200Response' in json_response:
+                response_data = json_response['new_try_200Response']
+                
+                # Process results if available
+                if 'Results' in response_data and 'result_1' in response_data['Results']:
+                    rows = response_data['Results']['result_1']['Row']
 
-            # Initialize lists to collect the parsed data
-            symptom_to_organ_list = []
-            symptom_with_duration_list = []
-            result_list = []
+                    # Separate results for display
+                    symptoms_data = []
+                    result_messages = []
 
-            # Iterate through the rows and append the respective values to the lists
-            for row in rows:
-                symptom_to_organ = row.get("symptom_to_organ", "")
-                symptom_with_duration = row.get("symptom_with_duration", "")
-                result = row.get("result", "")
+                    for row in rows:
+                        if "symptom" in row and "organ" in row and "duration" in row:
+                            symptoms_data.append({
+                                "Symptom": row["symptom"],
+                                "Organ": row["organ"],
+                                "Duration": row["duration"]
+                            })
+                        if "result" in row:
+                            result_messages.append(row["result"])
 
-                symptom_to_organ_list.append(symptom_to_organ)
-                symptom_with_duration_list.append(symptom_with_duration)
-                result_list.append(result)
+                    # Display symptoms in a DataFrame
+                    if symptoms_data:
+                        df = pd.DataFrame(symptoms_data)
+                        st.write("### Symptoms and Associated Data")
+                        st.write(df)
 
-            # Create a Pandas DataFrame with the parsed data
-            df = pd.DataFrame({
-                "symptom_to_organ": symptom_to_organ_list,
-                "symptom_with_duration": symptom_with_duration_list
-            })
+                    # Display result messages
+                    if result_messages:
+                        st.write("### Result Messages:")
+                        for message in result_messages:
+                            st.write(f"- {message}")
+                            
+                            # Check if any message requires MRI analysis
+                            if message == "MRI NEEDED NOW !!!":
+                                # Display a clickable link to the MRI analysis page
+                                st.markdown("""
+                                    **MRI Analysis Required!**
+                                    Please proceed to the [MRI image analysis page](http://localhost:7860/) for further steps.
+                                """, unsafe_allow_html=True)
 
-            # Display the Pandas table
-            st.write(df)
+                    else:
+                        st.write("No critical result messages available.")
+                    
+                else:
+                    st.error("Expected data structure not found.")
+                    st.write("Response structure:", json_response)
 
-            # Display the first cell of the "result" column separately
-            if result_list:
-                st.write(f"{result_list[0]}")
+            # If 'gcn_crf_finalResponse' key exists and contains 'Exception', display error
+            elif 'gcn_crf_finalResponse' in json_response:
+                response_data = json_response['gcn_crf_finalResponse']
+                if 'Results' in response_data and 'Exception' in response_data['Results']:
+                    st.error("Error in query execution:")
+                    for error in response_data['Results']['Exception']:
+                        st.write(f"Source: {error.get('Source')}")
+                        st.write(f"Code: {error.get('Code')}")
+                        st.write(f"Message: {error.get('Message')}")
+                else:
+                    st.error("Unexpected structure under 'gcn_crf_finalResponse'.")
+                    st.write("Response structure:", json_response)
+
             else:
-                st.write("No results available.")
+                st.error("Unknown response format.")
+                st.write("Full response content:", json_response)  # For debugging
 
         except (ValueError, KeyError) as e:
             st.error(f"Error processing the JSON response: {e}")
+            st.write("Full response content for debugging:", response.text)  # Display raw response
     else:
-        st.error("Error: Request failed with no response")
+        st.error("Error: Request failed with no response.")
