@@ -53,6 +53,7 @@ def func(combined_list):
     from transformers import AutoTokenizer, AutoModel
     from transformers import BertTokenizer, BertModel, BertConfig
     import os
+    from .download_utils import download_model_if_needed
 
     # Get the current file's directory (Utils directory)
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -61,6 +62,12 @@ def func(combined_list):
     config_path = os.path.join(current_dir, "config.json")
     vocab_path = os.path.join(current_dir, "vocab.txt")
     model_path = os.path.join(current_dir, "pytorch_model.bin")
+
+    # Add the Google Drive URL for your model
+    GDRIVE_URL = "https://drive.google.com/uc?id=1q43z-Eo_ZE41tpJOhOIbd_WPS0ufDz6j"
+    
+    # Download the model if it doesn't exist
+    model_path = download_model_if_needed(model_path, GDRIVE_URL)
 
     config = BertConfig.from_pretrained(config_path)
     tokenizer = BertTokenizer.from_pretrained(vocab_path)

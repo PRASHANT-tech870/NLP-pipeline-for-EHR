@@ -46,6 +46,7 @@ def fHALF(str):
     from torchcrf import CRF
     from transformers import AutoTokenizer, AutoModel
     from transformers import BertTokenizer, BertModel, BertConfig
+    from .download_utils import download_model_if_needed
 
     # Define BiLSTM and MOD classes
     class BiLSTM(nn.Module):
@@ -86,6 +87,12 @@ def fHALF(str):
     config_path = os.path.join(current_dir, "config.json")
     vocab_path = os.path.join(current_dir, "vocab.txt")
     model_path = os.path.join(current_dir, "pytorch_model.bin")
+
+    # Add the Google Drive URL for your model
+    GDRIVE_URL = "https://drive.google.com/uc?id=1q43z-Eo_ZE41tpJOhOIbd_WPS0ufDz6j"  # Replace with your actual Google Drive URL
+    
+    # Download the model if it doesn't exist
+    model_path = download_model_if_needed(model_path, GDRIVE_URL)
 
     config = BertConfig.from_pretrained(config_path)
     tokenizer = BertTokenizer.from_pretrained(vocab_path)
