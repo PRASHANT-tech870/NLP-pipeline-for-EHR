@@ -107,7 +107,12 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-medical_text = st.text_area("", height=150, placeholder="Enter your medical text here...")
+medical_text = st.text_area(
+    label="Medical Text Input",
+    height=150,
+    placeholder="Enter your medical text here...",
+    label_visibility="collapsed"
+)
 
 # Submit button with loading state
 if st.button("Analyze Text"):
