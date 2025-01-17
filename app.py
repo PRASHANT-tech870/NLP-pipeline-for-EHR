@@ -163,17 +163,25 @@ if st.button("Analyze Text"):
     with st.spinner('Analyzing medical text...'):
         df = func(rec_filter(medical_text, fs))
         df1 = rec_filter(medical_text, fs)
-        # Use consistent column names (uppercase)
+        # Use consistent column names and convert Duration to string
         df1 = pd.DataFrame(df1, columns=['Symptom', 'Duration', 'Organ'])
         df2 = pd.DataFrame(df, columns=['Symptom', 'Result'])
+        
+        # Convert Duration to string before merge
+        df1['Duration'] = df1['Duration'].astype(str)
+        
         result = pd.merge(df1, df2, how='outer', left_on='Symptom', right_on='Symptom')
         df = result.fillna('')
+        
+        # Ensure all columns are strings for consistent display
+        for col in df.columns:
+            df[col] = df[col].astype(str)
 
     if not df.empty:
         # Results section with explanation
         st.markdown("""
-            <div style='background-color: #1e2433; padding: 1.5rem; border-radius: 10px; margin-top: 2rem;'>
-                <h4 style='color: #00d2ff; margin-top: 0;'>🔍 Analysis Results</h4>
+            <div style='background-color: #1e2433; padding: 0.75rem; border-radius: 10px; margin-top: 2rem;'>
+                <h4 style='color: #00d2ff; margin: 0;'>🔍 Analysis Results</h4>
             </div>
         """, unsafe_allow_html=True)
         
@@ -205,6 +213,13 @@ if st.button("Analyze Text"):
                     <p>Critical symptoms detected. Please proceed to the 
                     <a href='http://localhost:7860/' target='_blank'>MRI image analysis page</a> 
                     immediately for further evaluation.</p>
+                </div>
+            """, unsafe_allow_html=True)
+        else:
+            st.markdown("""
+                <div class='mri-safe'>
+                    <h4 style='color: #00ff00; margin-top: 0;'>✅ No MRI Required</h4>
+                    <p>Based on the symptoms analysis, no urgent MRI scan is needed at this time.</p>
                 </div>
             """, unsafe_allow_html=True)
 
