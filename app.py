@@ -225,57 +225,47 @@ if st.button("Analyze Text"):
                 recommendations = analysis.split('3.')[1].split('4.')[0].strip()
                 additional_tests = analysis.split('4.')[1].strip()
                 
+                # Custom CSS
                 st.markdown("""
                     <style>
-                        .analysis-section {
+                        .stMarkdown {
                             background-color: #1e2433;
-                            padding: 2rem;
+                            padding: 1rem;
                             border-radius: 10px;
-                            border: 1px solid #3a7bd550;
+                            margin-bottom: 1rem;
+                        }
+                        .section-header {
+                            font-size: 1.2rem;
+                            font-weight: 600;
+                            margin-bottom: 0.5rem;
                         }
                         .section-content {
-                            margin: 1rem 0;
                             line-height: 1.6;
                             color: #ffffff;
                         }
                     </style>
                 """, unsafe_allow_html=True)
                 
-                st.markdown("""
-                    <div class="analysis-section">
-                        <div style='border-left: 4px solid #00d2ff; padding-left: 1rem; margin-bottom: 1.5rem;'>
-                            <h4 style='color: #00d2ff; margin-bottom: 1rem;'>🔍 Key Symptoms & Duration</h4>
-                            <div class='section-content'>{}</div>
-                        </div>
+                # Create containers for each section
+                with st.container():
+                    col1, col2 = st.columns(2)
+                    
+                    with col1:
+                        st.markdown("##### 🔍 Key Symptoms & Duration")
+                        st.info(key_symptoms)
                         
-                        <div style='border-left: 4px solid #ff6b6b; padding-left: 1rem; margin-bottom: 1.5rem;'>
-                            <h4 style='color: #ff6b6b; margin-bottom: 1rem;'>⚠️ Concerning Combinations</h4>
-                            <div class='section-content'>{}</div>
-                        </div>
+                        st.markdown("##### ⚠️ Concerning Combinations")
+                        st.error(concerning)
+                    
+                    with col2:
+                        st.markdown("##### 💊 Professional Recommendations")
+                        st.success(recommendations)
                         
-                        <div style='border-left: 4px solid #4cd964; padding-left: 1rem; margin-bottom: 1.5rem;'>
-                            <h4 style='color: #4cd964; margin-bottom: 1rem;'>💊 Professional Recommendations</h4>
-                            <div class='section-content'>{}</div>
-                        </div>
-                        
-                        <div style='border-left: 4px solid #ffcc00; padding-left: 1rem;'>
-                            <h4 style='color: #ffcc00; margin-bottom: 1rem;'>🔬 Additional Tests Required</h4>
-                            <div class='section-content'>{}</div>
-                        </div>
-                        
-                        <div style='margin-top: 2rem; padding: 1rem; background: linear-gradient(135deg, #3a7bd520, #00d2ff10); 
-                             border-radius: 8px; border: 1px solid #00d2ff30;'>
-                            <p style='color: #00d2ff; margin: 0; font-style: italic; font-size: 0.9rem;'>
-                                💡 This analysis is AI-generated and should be reviewed by a healthcare professional.
-                            </p>
-                        </div>
-                    </div>
-                """.format(
-                    key_symptoms.replace('\n', '<br>'),
-                    concerning.replace('\n', '<br>'),
-                    recommendations.replace('\n', '<br>'),
-                    additional_tests.replace('\n', '<br>')
-                ), unsafe_allow_html=True)
+                        st.markdown("##### 🔬 Additional Tests Required")
+                        st.warning(additional_tests)
+                
+                # Disclaimer
+                st.info("💡 This analysis is AI-generated and should be reviewed by a healthcare professional.", icon="ℹ️")
                 
             except Exception as e:
                 st.error(f"Error formatting analysis: {str(e)}")
