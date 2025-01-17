@@ -83,24 +83,27 @@ client = Groq(
     api_key="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"
 )
 
-def get_professional_analysis(df):
+def get_professional_analysis(df, medical_text):
     """Get professional medical analysis from Groq"""
     try:
         # Convert DataFrame to a readable format
         results_text = df.to_string()
         
-        prompt = f"""As a medical professional, analyze the following patient symptoms and provide a clear, professional summary. 
-        Include any concerning patterns and explain the significance of the findings. Here's the data:
+        prompt = f"""As a medical professional, analyze the following patient case and extracted symptoms. 
 
-        {results_text}
+Original Medical Text:
+{medical_text}
 
-        Please provide:
-        1. A summary of key symptoms and their durations
-        2. Any concerning combinations of symptoms
-        3. Professional recommendations
-        4. Whether further tests are needed (besides MRI if already recommended)
+Extracted Symptoms and Analysis:
+{results_text}
 
-        Format the response in a clear, medical professional style."""
+Please provide:
+1. A summary of key symptoms and their durations
+2. Any concerning combinations of symptoms
+3. Professional recommendations
+4. Whether further tests are needed (besides MRI if already recommended)
+
+Format the response in a clear, medical professional style."""
 
         # Get response from Groq
         chat_completion = client.chat.completions.create(
@@ -213,7 +216,7 @@ if st.button("Analyze Text"):
         """, unsafe_allow_html=True)
         
         with st.spinner('Generating professional analysis...'):
-            analysis = get_professional_analysis(df)
+            analysis = get_professional_analysis(df, medical_text)
             st.markdown(f"""
                 <div style='background-color: #1e2433; padding: 1.5rem; border-radius: 10px;'>
                     {analysis}
