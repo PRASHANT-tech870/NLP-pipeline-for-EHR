@@ -5,7 +5,8 @@ numpy>=1.24.0
 
 # Deep Learning & NLP
 torch>=2.0.0
-transformers>=4.30.0
+transformers
+torch-geometric
 pytorch-crf
 networkx>=3.1
 matplotlib>=3.7.0
