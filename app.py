@@ -148,23 +148,12 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
-# Add example button
-example_text = """A 33-year-old female with no prior medical comorbidities, who recently gave birth to a healthy girl child four months ago, was brought to the emergency department with sudden onset weakness of both upper and lower limbs that started four days prior and rapidly progressed to a state of quadriplegia. She was conscious and obeyed simple commands with eyes and mouth; however, she had severe dysarthria. She had bilateral facial palsy and bulbar palsy. She had flaccid, hyporeflexic, pure motor quadriplegia with limbs showing only a subtle withdrawal flicker to pain. MRI of the brain revealed hyperintensity in the central pons in diffusion-weighted images (Figure ), T2-weighted images (Figure ), and fluid-attenuated inversion recovery (FLAIR) images (Figure ) without abnormal contrast enhancement (Figure ), consistent with central pontine myelinolysis (CPM) (Figure ).\nThe biochemical analysis showed hypernatremia while the remaining electrolytes were normal. The rest of the blood workup was unremarkable. Relatives denied an antecedent history of hyponatremia with rapid correction. The patient was started on sodium correction and was given five days intravenous (IV) pulse methylprednisolone 1 g/day to stabilize the blood-brain barrier. The patient recovered significantly to normal power. She was then considered to have idiopathic hypernatremic osmotic demyelination and was discharged with a modified Rankin Scale score (mRS) of 0.\nOne year later, she presented to the neurology department with a one-week history of generalized fatigue, diffuse myalgias, and three days history of rapidly progressive weakness of all four limbs making her wheelchair-bound one day before the presentation. Her initial vital signs were unremarkable. She was noted to have a pure motor flaccid symmetric quadriparesis with proximal more than distal weakness and generalized hyporeflexia. Clinical examination of other systems was normal. Nerve conduction studies (NCS) done on day three of onset of weakness demonstrated reduced compound muscle action potential (CMAP) amplitudes of bilateral tibial and peroneal nerves with absent F waves and H reflexes. CMAP of tested nerves in upper limbs showed preserved amplitudes with normal distal latency and absent F waves. There were no conduction blocks. The sensory conduction study of all the tested nerves in all four limbs was normal. Cerebrospinal fluid (CSF) analysis did not show albumin-cytological dissociation. Therefore, acute motor axonal neuropathy (AMAN) variant of Guillain-Barré syndrome (GBS) or hypokalemia-related electrophysiological abnormalities were considered. A basic metabolic panel revealed severe hypokalemia (potassium 2.2 mEq/L). Arterial blood gas (ABG) and 24-hour urine analysis showed metabolic acidosis, consistent with renal tubular acidosis type-1 (distal). Autoimmune workup was positive anti-SSA/Ro autoantibodies. The biopsy of the minor salivary gland was pathognomonic. The patient was diagnosed with pSS according to the new classification criteria proposed by the American College of Rheumatology (ACR) and the European League Against Rheumatism (EULAR). Overall clinical, electrical, and biochemical data suggest the presence of renal tubular acidosis with secondary hypokalemia-related quadriparesis due to pSS.\nThe patient was given intravenous (IV) potassium supplementation through a peripheral vein at a rate not exceeding 10 mEq/hour and subsequently was shifted to oral liquid formulation in the form of a syrup. Oral sodium bicarbonate supplementation was given at a dose of 1 mEq/kg/day for renal tubular acidosis. With potassium correction, there was a rapid recovery in the power of all four limbs within 24 hours of admission. The patient was initiated on 1 mg/kg/day of oral prednisolone and was referred to a rheumatologist for further management. She remained asymptomatic on her six-month follow-up."""
-
-if st.button("Load Example Case"):
-    medical_text = st.text_area(
-        label="Medical Text Input",
-        value=example_text,
-        height=150,
-        label_visibility="collapsed"
-    )
-else:
-    medical_text = st.text_area(
-        label="Medical Text Input",
-        height=150,
-        placeholder="Enter your medical text here...",
-        label_visibility="collapsed"
-    )
+medical_text = st.text_area(
+    label="Medical Text Input",
+    height=150,
+    placeholder="Enter your medical text here...",
+    label_visibility="collapsed"
+)
 
 # Submit button with loading state
 if st.button("Analyze Text"):
