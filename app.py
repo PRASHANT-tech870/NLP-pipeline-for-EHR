@@ -5,6 +5,7 @@ from streamlit_lottie import st_lottie
 from Utils.func import func
 from Utils.rec_filter import rec_filter, fs
 import os
+from groq import Groq
 
 # Page configuration
 st.set_page_config(
@@ -77,6 +78,46 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+# Add this after your other imports
+client = Groq(
+    api_key="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"
+)
+
+def get_professional_analysis(df):
+    """Get professional medical analysis from Groq"""
+    try:
+        # Convert DataFrame to a readable format
+        results_text = df.to_string()
+        
+        prompt = f"""As a medical professional, analyze the following patient symptoms and provide a clear, professional summary. 
+        Include any concerning patterns and explain the significance of the findings. Here's the data:
+
+        {results_text}
+
+        Please provide:
+        1. A summary of key symptoms and their durations
+        2. Any concerning combinations of symptoms
+        3. Professional recommendations
+        4. Whether further tests are needed (besides MRI if already recommended)
+
+        Format the response in a clear, medical professional style."""
+
+        # Get response from Groq
+        chat_completion = client.chat.completions.create(
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt,
+                }
+            ],
+            model="mixtral-8x7b-32768",
+            temperature=0.1,
+        )
+        
+        return chat_completion.choices[0].message.content
+    except Exception as e:
+        return f"Error generating analysis: {str(e)}"
+
 # App header with animation
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
@@ -126,7 +167,7 @@ if st.button("Analyze Text"):
         df = result.fillna('')
 
     if not df.empty:
-        # Results section
+        # Results section with explanation
         st.markdown("""
             <div style='background-color: #1e2433; padding: 1.5rem; border-radius: 10px; margin-top: 2rem;'>
                 <h4 style='color: #00d2ff; margin-top: 0;'>🔍 Analysis Results</h4>
@@ -136,6 +177,23 @@ if st.button("Analyze Text"):
         # Display the DataFrame
         st.dataframe(df, height=400)
 
+        # Add explanation as an expander
+        with st.expander("ℹ️ Understanding the Results"):
+            st.markdown("""
+                ### Duration Numbers:
+                - 1: Hours
+                - 2: Days
+                - 3: Months
+                - 4: Year
+                - 5: seconds
+                - 6: Minutes
+                - 7: Years
+                - 8: No duration specified
+
+                ### Organ Field:
+                - 'nil organ': No specific organ was found associated with this symptom
+            """)
+
         # Check for MRI requirement in the Result column
         if "MRI NEEDED NOW !!!" in df['Result'].values:
             st.markdown("""
@@ -144,6 +202,21 @@ if st.button("Analyze Text"):
                     <p>Critical symptoms detected. Please proceed to the 
                     <a href='http://localhost:7860/' target='_blank'>MRI image analysis page</a> 
                     immediately for further evaluation.</p>
+                </div>
+            """, unsafe_allow_html=True)
+
+        # Add professional analysis
+        st.markdown("""
+            <div style='background-color: #1e2433; padding: 1.5rem; border-radius: 10px; margin-top: 2rem;'>
+                <h4 style='color: #00d2ff; margin-top: 0;'>🩺 Professional Analysis</h4>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        with st.spinner('Generating professional analysis...'):
+            analysis = get_professional_analysis(df)
+            st.markdown(f"""
+                <div style='background-color: #1e2433; padding: 1.5rem; border-radius: 10px;'>
+                    {analysis}
                 </div>
             """, unsafe_allow_html=True)
     else:
