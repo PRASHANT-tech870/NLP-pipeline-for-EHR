@@ -218,8 +218,33 @@ if st.button("Analyze Text"):
         with st.spinner('Generating professional analysis...'):
             analysis = get_professional_analysis(df, medical_text)
             st.markdown(f"""
-                <div style='background-color: #1e2433; padding: 1.5rem; border-radius: 10px;'>
-                    {analysis}
+                <div style='background-color: #1e2433; padding: 2rem; border-radius: 10px; border: 1px solid #3a7bd550;'>
+                    <div style='border-left: 4px solid #00d2ff; padding-left: 1rem; margin-bottom: 1.5rem;'>
+                        <h4 style='color: #00d2ff; margin: 0;'>Key Symptoms & Duration</h4>
+                        {analysis.split('2.')[0].replace('\n', '<br>')}
+                    </div>
+                    
+                    <div style='border-left: 4px solid #ff6b6b; padding-left: 1rem; margin-bottom: 1.5rem;'>
+                        <h4 style='color: #ff6b6b; margin: 0;'>Concerning Combinations</h4>
+                        {analysis.split('2.')[1].split('3.')[0].replace('\n', '<br>')}
+                    </div>
+                    
+                    <div style='border-left: 4px solid #4cd964; padding-left: 1rem; margin-bottom: 1.5rem;'>
+                        <h4 style='color: #4cd964; margin: 0;'>Professional Recommendations</h4>
+                        {analysis.split('3.')[1].split('4.')[0].replace('\n', '<br>')}
+                    </div>
+                    
+                    <div style='border-left: 4px solid #ffcc00; padding-left: 1rem;'>
+                        <h4 style='color: #ffcc00; margin: 0;'>Additional Tests Required</h4>
+                        {analysis.split('4.')[1].replace('\n', '<br>')}
+                    </div>
+                    
+                    <div style='margin-top: 2rem; padding: 1rem; background: linear-gradient(135deg, #3a7bd520, #00d2ff10); 
+                         border-radius: 8px; border: 1px solid #00d2ff30;'>
+                        <p style='color: #00d2ff; margin: 0; font-style: italic; font-size: 0.9rem;'>
+                            💡 This analysis is AI-generated and should be reviewed by a healthcare professional.
+                        </p>
+                    </div>
                 </div>
             """, unsafe_allow_html=True)
     else:
