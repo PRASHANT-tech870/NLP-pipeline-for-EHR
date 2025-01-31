@@ -9,7 +9,7 @@ from groq import Groq
 
 # Page configuration
 st.set_page_config(
-    page_title="AI powerd Medical Text Analyzer and MRI required Predictor",
+    page_title="AI powered Medical Text Analyzer and MRI required Predictor",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="expanded"
