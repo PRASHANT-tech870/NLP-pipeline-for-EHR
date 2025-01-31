@@ -125,7 +125,7 @@ Format the response in a clear, medical professional style."""
 col1, col2, col3 = st.columns([1, 2, 1])
 with col2:
     st_lottie(lottie_medical, height=250, key="medical")
-    st.markdown("<h1>AI powerd Medical Text Analyzer and MRI required Predictor</h1>", unsafe_allow_html=True)
+    st.markdown("<h1>AI powered Medical Text Analyzer and MRI required Predictor</h1>", unsafe_allow_html=True)
 
 # Input section with description
 st.markdown("""
