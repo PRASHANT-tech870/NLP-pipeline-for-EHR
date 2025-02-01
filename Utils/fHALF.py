@@ -101,6 +101,7 @@ def fHALF(str):
     # Load the trained model
     model = MOD(768, 6).to(device)  # Ensure model is on the same device
     import os
+    from torch.ao.quantization import quantize_dynamic
 
     # Get the current file's directory (Utils directory)
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -108,6 +109,11 @@ def fHALF(str):
     # Construct path to the model file
     model_path = os.path.join(current_dir, "best_model.pth")
     model.load_state_dict(torch.load(model_path, map_location=device))
+
+    ###
+    model = quantize_dynamic(
+        model, {torch.nn.Linear}, dtype=torch.qint8
+    )
     model.eval()
 
     # Initialize lists for storing results
