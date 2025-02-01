@@ -93,15 +93,17 @@ def fHALF(str):
     
     # Download the model if it doesn't exist
     model_path = download_model_if_needed(model_path, GDRIVE_URL)
-
+    from torch.ao.quantization import quantize_dynamic
     config = BertConfig.from_pretrained(config_path)
     tokenizer = BertTokenizer.from_pretrained(vocab_path)
     biobert_model = BertModel.from_pretrained(model_path, config=config, local_files_only=True)
-
+    biobert_model = quantize_dynamic(
+        biobert_model, {torch.nn.Linear}, dtype=torch.qint8
+    )
     # Load the trained model
     model = MOD(768, 6).to(device)  # Ensure model is on the same device
     import os
-    from torch.ao.quantization import quantize_dynamic
+    
 
     # Get the current file's directory (Utils directory)
     current_dir = os.path.dirname(os.path.abspath(__file__))
