@@ -7,7 +7,7 @@ def fHALF(str):
     l.append(str)
     osl_shuffled = l
 
-    print(len(osl_shuffled))
+    
 
 
     import re
@@ -31,7 +31,7 @@ def fHALF(str):
         # Append the cleaned sentences to the final list
         final_list_of_sentences.append(tokenized_sentences)
 
-    print(len(final_list_of_sentences))
+    
 
     for i in range(len(final_list_of_sentences)):
         if not final_list_of_sentences[i]:
@@ -249,14 +249,9 @@ def fHALF(str):
         symptoms_wout_duration_ALL.append(symptoms_wout_duration)
         new_dict_ALL.append(new_dict)
 
-    print(all_symptoms_ALL)
-    print(symptoms_wout_duration_ALL)
-    print(symptom_with_organ_ALL)
-    print(new_dict_ALL)
-    print(lis_5)
+
 
     all_symptoms_ALL = [list(set(lst)) for lst in all_symptoms_ALL]
-    print(symptoms_wout_duration_ALL)
 
     for i in symptoms_wout_duration_ALL:
         if 'headache' in i:
@@ -270,7 +265,6 @@ def fHALF(str):
                 hashset.add(j)
 
 
-    print(hashset)
 
     import string
     import re
@@ -298,7 +292,7 @@ def fHALF(str):
         if cleaned_item:  # Only add non-empty items
             cleaned_hashset.add(cleaned_item)
 
-    print("Cleaned hashset:", cleaned_hashset)
+
 
     hashset = cleaned_hashset
 
@@ -406,7 +400,6 @@ def fHALF(str):
         if not found_organ:
             combined_list.append([symptom, duration, 'nil organ'])
 
-    print(combined_list)
 
     duration_mapping = {
         'seconds': 2,
