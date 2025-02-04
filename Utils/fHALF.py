@@ -427,7 +427,5 @@ def fHALF(str):
     for i in range(len(combined_list)):
         combined_list[i] = tuple(combined_list[i])
 
-    print(combined_list)
-    print(type(combined_list[0]))
 
     return combined_list
