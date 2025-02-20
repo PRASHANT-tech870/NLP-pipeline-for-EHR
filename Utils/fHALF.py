@@ -97,9 +97,9 @@ def fHALF(str):
     config = BertConfig.from_pretrained(config_path)
     tokenizer = BertTokenizer.from_pretrained(vocab_path)
     biobert_model = BertModel.from_pretrained(model_path, config=config, local_files_only=True)
-    biobert_model = quantize_dynamic(
-        biobert_model, {torch.nn.Linear}, dtype=torch.qint8
-    )
+    # biobert_model = quantize_dynamic(
+    #     biobert_model, {torch.nn.Linear}, dtype=torch.qint8
+    # )
     # Load the trained model
     model = MOD(768, 6).to(device)  # Ensure model is on the same device
     import os
@@ -109,13 +109,13 @@ def fHALF(str):
     current_dir = os.path.dirname(os.path.abspath(__file__))
 
     # Construct path to the model file
-    model_path = os.path.join(current_dir, "best_model.pth")
-    model.load_state_dict(torch.load(model_path, map_location=device))
-
-    ###
+    model_path = os.path.join(current_dir, "quantized_model_2.pth")
     model = quantize_dynamic(
         model, {torch.nn.Linear}, dtype=torch.qint8
     )
+    model.load_state_dict(torch.load(model_path, map_location=device))
+    ##
+    
     model.eval()
 
     # Initialize lists for storing results

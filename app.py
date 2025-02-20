@@ -6,7 +6,8 @@ from Utils.func import func
 from Utils.rec_filter import rec_filter, fs
 import os
 from groq import Groq
-
+import torch
+torch.backends.quantized.engine = 'qnnpack'
 # Page configuration
 st.set_page_config(
     page_title="AI powered Medical Text Analyzer and MRI required Predictor",
