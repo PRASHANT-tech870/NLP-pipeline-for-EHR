@@ -114,7 +114,7 @@ Format the response in a clear, medical professional style."""
                     "content": prompt,
                 }
             ],
-            model="mixtral-8x7b-32768",
+            model="llama-3.3-70b-versatile",
             temperature=0.1,
         )
         
