@@ -81,7 +81,7 @@ st.markdown("""
 
 # Initialize Groq client
 client = Groq(
-    api_key="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"
+    api_key="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"
 )
 
 def get_professional_analysis(df, medical_text):
