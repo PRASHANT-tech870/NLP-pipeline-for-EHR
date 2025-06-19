@@ -1,3 +1,4 @@
 *.bin
 Utils/*.bin
 *.part
+*.toml
