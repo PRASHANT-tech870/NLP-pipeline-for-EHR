@@ -16,6 +16,28 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Function to load example cases
+def load_example_cases():
+    examples_path = os.path.join(current_dir, "Utils", "examples.txt")
+    examples = []
+    current_example = ""
+    example_number = 1
+    
+    with open(examples_path, 'r') as file:
+        for line in file:
+            if line.strip().startswith(str(example_number) + "."):
+                if current_example:
+                    examples.append(current_example.strip())
+                current_example = line[line.find(".") + 1:]
+                example_number += 1
+            else:
+                current_example += line
+                
+    if current_example:
+        examples.append(current_example.strip())
+    
+    return examples
+
 # Function to load Lottie animations
 def load_lottiefile(filepath: str):
     with open(filepath, "r") as f:
@@ -152,15 +174,36 @@ st.markdown("""
     </div>
 """, unsafe_allow_html=True)
 
+# Example cases section
+st.markdown("""
+    <div style='background-color: #1e2433; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;'>
+        <h4 style='color: #00d2ff; margin-top: 0;'>📋 Example Cases</h4>
+        <p style='color: #ffffff99;'>Click on any example case below to analyze it:</p>
+    </div>
+""", unsafe_allow_html=True)
+
+# Load and display example cases
+examples = load_example_cases()
+cols = st.columns(3)
+for idx, example in enumerate(examples):
+    with cols[idx % 3]:
+        if st.button(f"Example {idx + 1}", key=f"example_{idx}"):
+            st.session_state.medical_text = example
+            st.session_state.analyze_clicked = True
+
 medical_text = st.text_area(
     label="Medical Text Input",
     height=150,
     placeholder="Enter your medical text here...",
+    value=st.session_state.get('medical_text', ''),
     label_visibility="collapsed"
 )
 
 # Submit button with loading state
-if st.button("Analyze Text"):
+analyze_clicked = st.button("Analyze Text") or st.session_state.get('analyze_clicked', False)
+
+if analyze_clicked:
+    st.session_state.analyze_clicked = False  # Reset the flag
     with st.spinner('Analyzing medical text...'):
         df = func(rec_filter(medical_text, fs))
         df1 = rec_filter(medical_text, fs)
@@ -234,12 +277,41 @@ if st.button("Analyze Text"):
         with st.spinner('Generating professional analysis...'):
             analysis = get_professional_analysis(df, medical_text)
             
-            # Split the analysis into sections and clean them
+            # Robust parsing of the analysis response
             try:
-                key_symptoms = analysis.split('2.')[0].strip().replace('1.', '').strip()
-                concerning = analysis.split('2.')[1].split('3.')[0].strip()
-                recommendations = analysis.split('3.')[1].split('4.')[0].strip()
-                additional_tests = analysis.split('4.')[1].strip()
+                # Check if the response contains numbered sections
+                if '1.' in analysis and '2.' in analysis and '3.' in analysis and '4.' in analysis:
+                    # Parse numbered sections
+                    parts = analysis.split('2.')
+                    if len(parts) > 1:
+                        key_symptoms = parts[0].strip().replace('1.', '').strip()
+                        
+                        parts = parts[1].split('3.')
+                        if len(parts) > 1:
+                            concerning = parts[0].strip()
+                            
+                            parts = parts[1].split('4.')
+                            if len(parts) > 1:
+                                recommendations = parts[0].strip()
+                                additional_tests = parts[1].strip()
+                            else:
+                                recommendations = parts[0].strip()
+                                additional_tests = "No additional tests specified."
+                        else:
+                            concerning = parts[0].strip()
+                            recommendations = "No specific recommendations provided."
+                            additional_tests = "No additional tests specified."
+                    else:
+                        key_symptoms = "Unable to parse key symptoms."
+                        concerning = "Unable to parse concerning combinations."
+                        recommendations = "Unable to parse recommendations."
+                        additional_tests = "Unable to parse additional tests."
+                else:
+                    # If no numbered sections, display the full analysis
+                    key_symptoms = analysis
+                    concerning = "Analysis provided in full text format."
+                    recommendations = "Please review the full analysis above."
+                    additional_tests = "Check the complete analysis for test recommendations."
                 
                 # Custom CSS
                 st.markdown("""
@@ -285,6 +357,7 @@ if st.button("Analyze Text"):
                 
             except Exception as e:
                 st.error(f"Error formatting analysis: {str(e)}")
+                st.write("**Raw Analysis:**")
                 st.write(analysis)  # Fallback to display raw analysis
     else:
         st.warning("No symptoms were detected in the provided text. Please try again with different text.")
